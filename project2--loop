@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        margin-top: 50px;
+      }
+      .container div {
+        height: 40px;
+        width: 100px;
+        border: 2px solid gray;
+      }
+      .sub-menu div {
+        height: 40px;
+        width: 100px;
+        border: 2px solid gray;
+      }
+      .active {
+        background-color: lightblue;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sub-menu">
+      <div class="active">All</div>
+      <div>Team</div>
+      <div>Personal</div>
+    </div>
+    <div class="container">
+      <div class="personal">div1</div>
+      <div class="team">div2</div>
+      <div class="team">div3</div>
+      <div class="personal">div3</div>
+      <div class="team">div3</div>
+      <div class="team">div3</div>
+    </div>
+
+    <script>
+      const subMenu = document.querySelectorAll(".sub-menu div");
+      const container = document.querySelectorAll(".container div");
+
+      const removeActive = () => {
+        for (let i = 0; i < subMenu.length; i++) {
+          subMenu[i].classList.remove("active");
+        }
+      };
+
+      const addHidden = () => {
+        // isPersonal;
+        if (subMenu[2].classList.contains("active")) {
+          console.log("Personal");
+          container.forEach(function (el) {
+            if (el.classList.contains("team")) {
+              el.classList.add("hidden");
+            }
+            if (el.classList.contains("personal")) {
+              el.classList.remove("hidden");
+            }
+          });
+        } else if (subMenu[1].classList.contains("active")) {
+          console.log("Team");
+          container.forEach(function (el) {
+            if (el.classList.contains("personal")) {
+              el.classList.add("hidden");
+            }
+            if (el.classList.contains("team")) {
+              el.classList.remove("hidden");
+            }
+          });
+        } else if (subMenu[0].classList.contains("active")) {
+          console.log("All");
+          container.forEach(function (el) {
+            el.classList.remove("hidden");
+          });
+        }
+      };
+
+      for (let i = 0; i < subMenu.length; i++) {
+        subMenu[i].addEventListener("click", function () {
+          removeActive();
+          subMenu[i].classList.add("active");
+          addHidden();
+        });
+      }
+    </script>
+  </body>
+</html>
